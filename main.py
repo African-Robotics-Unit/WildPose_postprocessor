@@ -8,7 +8,7 @@ from ximea import xiapi
 
 
 def main():
-    meas_path = "/data/test/2022-11-30_15-17-43.373_measurement"
+    meas_path = "data/test/2022-11-30_15-17-43.373_measurement"
     channel_name = "rt/image_raw"
     cam_context_path = os.path.join(meas_path, "cam_context.bin")
     out_path_rgb = os.path.join(meas_path, "rgb/")
