@@ -11,7 +11,8 @@
 	"customizations": {
 		"vscode": {
 			"extensions": [
-				"donjayamanne.python-extension-pack"
+				"donjayamanne.python-extension-pack",
+				"ms-python.autopep8"
 			]
 		}
 	}
