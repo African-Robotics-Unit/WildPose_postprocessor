@@ -12,7 +12,8 @@
 		"vscode": {
 			"extensions": [
 				"donjayamanne.python-extension-pack",
-				"ms-python.autopep8"
+				"ms-python.autopep8",
+				"Codeium.codeium"
 			]
 		}
 	}
