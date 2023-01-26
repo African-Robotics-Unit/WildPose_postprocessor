@@ -4,7 +4,27 @@ from pprint import pprint
 
 import ecal
 import ecal.measurement.hdf5
+import ecal.measurement.measurement
 from ximea import xiapi
+
+import rclpy
+from sensor_msgs.msg import PointCloud2
+
+
+# deserialize an ecal measurement having ROS2 topics and get the PCL data from sensor_msgs/msg/PointCloud2 topics.
+def get_pcl_data(meas, channel_name):
+    channel_type = meas.get_channel_type(
+        channel_name)  # sensor_msgs/msg/PointCloud2
+    print(channel_type)
+    entris_info = meas.get_entries_info(channel_name)
+    data_size = meas.get_entry_data_size(entry_id=entris_info[0]['id'])
+
+    # deserialize the entry data
+    pc = PointCloud2()  # point cloud data
+    pc.data = meas.get_entry_data(entry_id=entris_info[0]['id'])
+    pprint(pc)
+
+    return pc
 
 
 def main():
@@ -23,15 +43,8 @@ def main():
 
     # get PCL data (rt/livox/lidar, rt/livox/imu)
     channel_name = 'rt/livox/lidar'
-    channel_type = meas.get_channel_type(
-        channel_name)  # sensor_msgs/msg/PointCloud2
     # https://eclipse-ecal.github.io/ecal/_api/structeCAL_1_1eh5_1_1SEntryInfo.html#_CPPv4N4eCAL3eh510SEntryInfoE
-    entries_info = meas.get_entries_info(channel_name)
-    data_size = meas.get_entry_data_size(entry_id=entries_info[0]['id'])
-    data = meas.get_entry_data(entry_id=entries_info[0]['id'])
-
-    pprint(channel_type)
-    pprint(data_size)
+    pcd = get_pcl_data(meas, channel_name)
 
 
 if __name__ == "__main__":
